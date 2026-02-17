@@ -15,7 +15,7 @@ function App() {
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
 
-  // ✅ جلب المهام من الباك
+  //  جلب المهام من الباك
   const fetchTasks = async () => {
     const res = await API.get("/");
     setTasks(res.data);
@@ -25,7 +25,7 @@ function App() {
     fetchTasks();
   }, []);
 
-  // ✅ إضافة مهمة
+  //  إضافة مهمة
   const addTask = async () => {
     if (!newTitle) return;
 
@@ -39,13 +39,13 @@ function App() {
     fetchTasks();
   };
 
-  // ✅ حذف
+  //  حذف
   const deleteTask = async (id) => {
     await API.delete(`/${id}`);
     fetchTasks();
   };
 
-  // ✅ تغيير حالة مكتمل
+  //  تغيير حالة مكتمل
   const toggleComplete = async (task) => {
     await API.put(`/${task.id}`, {
       completed: task.completed ? 0 : 1,
@@ -54,14 +54,14 @@ function App() {
     fetchTasks();
   };
 
-  // ✅ بدء التعديل
+  //  بدء التعديل
   const startEdit = (task) => {
     setEditId(task.id);
     setEditTitle(task.title);
     setEditDescription(task.description);
   };
 
-  // ✅ حفظ التعديل
+  // حفظ التعديل
   const saveEdit = async (id) => {
     await API.put(`/${id}`, {
       title: editTitle,
@@ -115,18 +115,25 @@ function App() {
               </div>
             ) : (
               <>
-                <div className="task-content">
-                  <span
-                    onClick={() => toggleComplete(task)}
-                    className={task.completed ? "completed" : ""}
-                  >
-                    {task.title}
-                  </span>
+                <label className="task-content">
+  <div className="task-main">
+    <input
+      type="checkbox"
+      checked={task.completed === 1}
+      onChange={() => toggleComplete(task)}
+    />
 
-                  <p className="description">
-                    {task.description}
-                  </p>
-                </div>
+    <span className={task.completed ? "completed" : ""}>
+      {task.title}
+    </span>
+  </div>
+
+  <p className="description">
+    {task.description}
+  </p>
+</label>
+
+
 
                 <div className="actions">
                   <button onClick={() => startEdit(task)}>

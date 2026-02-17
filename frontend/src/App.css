@@ -109,7 +109,15 @@ button:hover {
 }
 
 .task-content {
-  max-width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-content input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
 
 .description {
